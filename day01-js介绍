@@ -1,6 +1,26 @@
 主流浏览器
 IE              trident
-Chrome          webkit/blink
+Chrome          webkit（2014前）/blink
 firefox         Gecko
 Opera           presto
 Safari          webkit
+
+如何引入js
+  页面内嵌<script></script>标签
+  外部引入<script src="location"></script>
+为符合web标准 结构、样式、行为相分离，通常会采用外部引入
+
+js基础语法
+
+变量(variable)
+    变量声明  var
+        声明、赋值分解   var a = 10;
+        单一var         var a = 10,b=20,c=30;
+    命名规则
+        1、变量名必须以英文字母、_、$开头
+        2、变量名可以包括英文字母、_、$、数字
+        3、不可以用系统的关键字、保留字作为变量名
+
+值类型——数据类型
+    原始值
+    Number  Boolean String  undefined null
