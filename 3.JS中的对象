@@ -1,0 +1,76 @@
+一、对象的分类
+  1.内部对象
+    错误对象：Error
+    本地对象：Boolean String Number Array Date Function Object RegExp
+    内置对象：(解释器内置，不需要使用New)  global  Math Json
+  2.宿主对象
+    运行环境提供的对象：window document
+  3.自定义对象
+    开发者自己创建的对象
+二、原始类型转换到对象
+  Object(true); // Boolean {[[PrimitiveValue]]: true}
+  Object(123); // Number {[[PrimitiveValue]]: 123}
+  Object('abc'); // String {0: "a", 1: "b", 2: "c", length: 3,[[PrimitiveValue]]: "abc"}
+  Object(null); // {}
+  Object(undefined); // {}
+三、对象上的两个基础方法
+  （a）toString
+      1.将当前对象用字符串表示出来。
+      2.所有的内部对象和宿主对象都重写了toString方法。
+        Boolean String Number直接返回对应的字符串。
+        Array:为数组的每一项调用toString方法并将结果用逗号连接
+        Date:返回一个由日期和时间组成的字符串（不同的环境下结果不一样）
+        Function:返回函数体内部的源码
+        Object:返回[object object]
+        RegExp:返回正则表达式的直接量字符串（带转义符）
+      3.可以接受一个2~36的数字作为参数，表示需要转换的内容是几进制的
+  （b）valueOf
+      1.有原始值返回原始值
+      2.没有原始值返回本身
+      3.Date对象返回距离1970年1月1日0点的毫秒数
+四、对象转换到原始类型
+  1.Boolean:所有的对象转换到布尔类型都为true.（JS中只有6个值能转成false）
+  2.String：先调用toString方法,再调用valueOf方法
+  3.Number：先调用valueOf方法，再调用toString方法
+五、如何创建一个对象
+  1.字面量（最简单）
+    var o={age:123}
+  2.new操作符（最标准）
+    var o=new Object()
+    var s=new String('abcd')
+    var n=new Number(123)
+      注：
+         x instanceof y 判断对象x是否是class y或构造函数y的实例（若x不是对象，则直接返回false）
+        var a =new Number(1);
+         a instanceof Number；// true
+        var b =Number(1);
+          b instanceof Number；// false
+    var a=new Array(3)  没有参数的时候可以不写括号
+    var d=new Date(2017/04/15)
+      
+
+  3.使用ES5中的新方法（最精确，最麻烦） Object.create()
+      接受两个参数：
+        1.要继承的原型
+        2.对象的详细描述
+          {
+           like:{
+            value:"fish",        // 初始化赋值
+            writable:true,       // 是否是可改写的
+            configurable:true,   // 是否能够删除，是否能够被修改
+            enumerable:true      //是否可以用for in 进行枚举
+           }
+          }
+六、对象的属性的获取
+  （a）点：点后面放属性名称
+  （b）方括号：括号里面放表达式（属性名称是一个变量时，必须用方括号）
+  （c）属性获取过程详解
+    1.对“.”或者 “[ ]”前面处理
+      ·如果是undefined或null直接报错
+      ·如果不是对象就转换成对应的对象
+    2.对“.”或者 “[ ]”后面处理
+      ·如果是“.”，则查找对应的属性
+      ·如果是 “[ ]”，先计算“[ ]”里面的表达式，再将结果转换为字符串，并查找对应的属性
+    3.结果
+      ·如果该属性存在则返回对应的值
+      ·如果该属性不存在则返回undefined
